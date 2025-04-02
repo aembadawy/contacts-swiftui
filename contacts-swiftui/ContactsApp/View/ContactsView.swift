@@ -26,11 +26,17 @@ struct ContactsView: View {
               lastName: " Leclerc",
               eamil: "c.leclerc@f1.com")
     ]
+    @State private var searchText: String = ""
+    
     var body: some View {
-        List {
-            ForEach(contacts) { contact in
-                Text(contact.eamil)
+        NavigationStack {
+            List {
+                ForEach(contacts) { contact in
+                    Text(contact.eamil)
+                }
             }
+            .navigationTitle("Contacts")
+            .searchable(text: $searchText)
         }
     }
 }
