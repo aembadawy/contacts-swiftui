@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct Contact: Identifiable, Hashable{
+    let id: String
+    var firstName: String
+    var lastName: String
+    var eamil: String
+}
+ 
