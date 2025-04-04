@@ -27,14 +27,33 @@ struct ContactsView: View {
               eamil: "c.leclerc@f1.com")
     ]
     @State private var searchText: String = ""
+    @State private var showAddContactView: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(contacts) { contact in
-                    Text(contact.eamil)
+                    NavigationLink(value: contact) {
+                        ContactRowView(contact: contact)
+                    }
                 }
             }
+            .sheet(isPresented: $showAddContactView, content: {
+                AddContactView().presentationDetents([.medium])
+            })
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showAddContactView.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+
+                }
+            }
+            .navigationDestination(for: Contact.self, destination: { contact in
+                Text(contact.firstName)
+            })
             .navigationTitle("Contacts")
             .searchable(text: $searchText)
         }

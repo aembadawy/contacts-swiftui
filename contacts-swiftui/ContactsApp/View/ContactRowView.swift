@@ -8,11 +8,40 @@
 import SwiftUI
 
 struct ContactRowView: View {
+    let contact: Contact
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                
+                Text("MJ")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .overlay{
+                        Circle()
+                            .frame(width: 48, height: 48)
+                            .foregroundStyle(Color.gray)
+                            .opacity(0.2)
+                    }
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(contact.firstName + contact.lastName)
+                        .font(.headline)
+                    Text(contact.eamil)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.horizontal)
+                
+                Spacer()
+            }
+            .padding(.horizontal)
+        }
     }
 }
 
 #Preview {
-    ContactRowView()
+    ContactRowView(contact: Contact(id: "1",
+                                            firstName: "Pierre",
+                                            lastName: "Gasly",
+                                            eamil: "p.gasly@f1.com"))
 }
