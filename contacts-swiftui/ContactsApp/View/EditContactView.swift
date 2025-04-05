@@ -14,7 +14,8 @@ struct EditContactView: View {
     
     @State private var contact: Contact
     @State private var contactDidChange: Bool = false
-    
+    @State private var showExistConfrimation: Bool = false
+
     private let originalContact: Contact
     
     init(contact: Contact) {
@@ -41,13 +42,23 @@ struct EditContactView: View {
         .onChange(of: contact, { oldValue, newValue in
             contactDidChange = newValue != originalContact
         })
+        .alert(
+            "Un Saved Changes",
+            isPresented: $showExistConfrimation,
+            actions: {
+                Button("Stay", role: .cancel) { }
+                Button("Discard Changes", role: .destructive) {
+                    dismiss() 
+                }
+            }
+        )
         .navigationTitle("Edit Contact")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button("Cancel") {
-                    dismiss()
+                    onCancel()
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
@@ -62,6 +73,15 @@ struct EditContactView: View {
     }
 }
 extension EditContactView {
+    
+    func onCancel() {
+        if contactDidChange {
+            showExistConfrimation = true
+        } else {
+            dismiss()
+        }
+    }
+    
     func deleteContact() {
         viewModel.deleteContact(contact)
         dismiss()
