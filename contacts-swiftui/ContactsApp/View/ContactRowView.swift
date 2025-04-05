@@ -11,38 +11,30 @@ struct ContactRowView: View {
     let contact: Contact
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack {
+            Text("MJ")
+                .foregroundStyle(Color.white)
+                .frame(width: 48, height: 48)
+                .background(Color(.systemGray4))
+                .clipShape(Circle())
+           
+            VStack(alignment: .leading, spacing: 0) {
+                Text(contact.firstName + " " + contact.lastName)
+                    .font(.headline)
                 
-                Text("MJ")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.black)
-                    .overlay{
-                        Circle()
-                            .frame(width: 48, height: 48)
-                            .foregroundStyle(Color.gray)
-                            .opacity(0.2)
-                    }
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(contact.firstName + contact.lastName)
-                        .font(.headline)
-                    Text(contact.eamil)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.horizontal)
-                
-                Spacer()
+                Text(contact.eamil)
+                    .foregroundColor(.secondary)
             }
-            .padding(.horizontal)
+            
+            Spacer()
         }
+        
     }
 }
 
 #Preview {
     ContactRowView(contact: Contact(id: "1",
-                                            firstName: "Pierre",
-                                            lastName: "Gasly",
-                                            eamil: "p.gasly@f1.com"))
+                                    firstName: "Pierre",
+                                    lastName: "Gasly",
+                                    eamil: "p.gasly@f1.com"))
 }
