@@ -15,6 +15,7 @@ struct EditContactView: View {
     @State private var contact: Contact
     @State private var contactDidChange: Bool = false
     @State private var showExistConfrimation: Bool = false
+    @State private var showDeleteConfrimation: Bool = false
 
     private let originalContact: Contact
     
@@ -35,7 +36,7 @@ struct EditContactView: View {
             }
             
             Button("Delete Contact") {
-                deleteContact()
+                showDeleteConfrimation.toggle()
             }
             
         }
@@ -49,6 +50,16 @@ struct EditContactView: View {
                 Button("Stay", role: .cancel) { }
                 Button("Discard Changes", role: .destructive) {
                     dismiss() 
+                }
+            }
+        )
+        .alert(
+            "Un Saved Changes",
+            isPresented: $showExistConfrimation,
+            actions: {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    deleteContact()
                 }
             }
         )
