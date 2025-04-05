@@ -39,7 +39,8 @@ struct ContactsView: View {
                 }
             }
             .sheet(isPresented: $showAddContactView, content: {
-                AddContactView().presentationDetents([.medium])
+                AddContactView()
+                    .presentationDetents([.height(300)])
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

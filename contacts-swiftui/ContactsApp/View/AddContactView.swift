@@ -21,7 +21,13 @@ struct AddContactView: View {
                 TextField("First Name", text: $firstName)
                 TextField("Last name", text: $lastName)
                 TextField("Email", text: $email)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                
             }
+            .navigationTitle("New Contact")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
