@@ -10,6 +10,7 @@ import SwiftUI
 struct AddContactView: View {
     
     @Environment(\.dismiss) var dismiss
+    @Environment(ContactViewModel.self) var viewModel
     
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -36,7 +37,7 @@ struct AddContactView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
-                       //Add save logic
+                        addNewContact()
                         dismiss()
                     }
                     .fontWeight(.bold)
@@ -46,6 +47,19 @@ struct AddContactView: View {
     }
 }
 
+extension AddContactView {
+    func addNewContact() {
+        let contact = Contact(
+            id: UUID().uuidString,
+            firstName: firstName,
+            lastName: lastName,
+            email: email
+        )
+        viewModel.addContact(contact)
+    }
+}
+
 #Preview {
     AddContactView()
+        .environment(ContactViewModel())
 }

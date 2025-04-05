@@ -10,7 +10,7 @@ import SwiftUI
 struct EditContactView: View {
     
     @Environment(\.dismiss) var dismiss
-    
+    @Environment(ContactViewModel.self) var viewModel
     @State private var contact: Contact
     
     init(contact: Contact) {
@@ -29,7 +29,7 @@ struct EditContactView: View {
             }
             
             Button("Delete Contact") {
-                
+                deleteContact()
             }
             
         }
@@ -44,12 +44,22 @@ struct EditContactView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    //Add save logic
-                    dismiss()
+                    updateContact()
                 }
                 .fontWeight(.bold)
             }
         }
+    }
+}
+extension EditContactView {
+    func deleteContact() {
+        viewModel.deleteContact(contact)
+        dismiss()
+    }
+    
+    func updateContact() {
+        viewModel.updateContact(contact)
+        dismiss()
     }
 }
 
@@ -59,4 +69,5 @@ struct EditContactView: View {
                         firstName: "Pierre",
                         lastName: "Gasly",
                         email: "p.gasly@f1.com"))
+    .environment(ContactViewModel())
 }
