@@ -13,10 +13,14 @@ struct ContactsView: View {
     @State private var searchText: String = ""
     @State private var showAddContactView: Bool = false
     
+    var serchResults: [Contact] {
+        return viewModel.searchResults(searchText)
+    }
+    
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.contacts) { contact in
+                ForEach(serchResults) { contact in
                     NavigationLink(value: contact) {
                         ContactRowView(contact: contact)
                     }

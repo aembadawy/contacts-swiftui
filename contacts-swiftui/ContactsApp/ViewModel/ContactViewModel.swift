@@ -49,4 +49,17 @@ class ContactViewModel {
         guard let index = contacts.firstIndex(where: { $0.id == contact.id}) else { return }
         contacts[index] = contact
     }
+    
+    func searchResults(_ query: String) -> [Contact] {
+        guard !query.isEmpty else {
+            return contacts
+        }
+        
+        return contacts.filter {
+            $0.firstName.localizedCaseInsensitiveContains(query) ||
+            $0.lastName.localizedCaseInsensitiveContains(query) ||
+            $0.email.localizedCaseInsensitiveContains(query)
+        }
+        
+    }
 }
