@@ -12,19 +12,19 @@ struct ContactsView: View {
         .init(id: "1",
               firstName: "Pierre",
               lastName: "Gasly",
-              eamil: "p.gasly@f1.com"),
+              email: "p.gasly@f1.com"),
         .init(id: "2",
               firstName: "Max",
               lastName: " Verstappen",
-              eamil: "m.verstappen@f1.com"),
+              email: "m.verstappen@f1.com"),
         .init(id: "3",
               firstName: "Lewis",
               lastName: "Hamilton",
-              eamil: "l.hamilton@f1.com"),
+              email: "l.hamilton@f1.com"),
         .init(id: "4",
               firstName: "Charles",
               lastName: " Leclerc",
-              eamil: "c.leclerc@f1.com")
+              email: "c.leclerc@f1.com")
     ]
     @State private var searchText: String = ""
     @State private var showAddContactView: Bool = false
@@ -53,7 +53,7 @@ struct ContactsView: View {
                 }
             }
             .navigationDestination(for: Contact.self, destination: { contact in
-                Text(contact.firstName)
+                EditContactView(contact: contact)
             })
             .navigationTitle("Contacts")
             .searchable(text: $searchText)

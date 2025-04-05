@@ -12,7 +12,7 @@ struct ContactRowView: View {
     
     var body: some View {
         HStack {
-            Text("MJ")
+            Text(contact.initials)
                 .foregroundStyle(Color.white)
                 .frame(width: 48, height: 48)
                 .background(Color(.systemGray4))
@@ -22,7 +22,7 @@ struct ContactRowView: View {
                 Text(contact.firstName + " " + contact.lastName)
                     .font(.headline)
                 
-                Text(contact.eamil)
+                Text(contact.email)
                     .foregroundColor(.secondary)
             }
             
@@ -36,5 +36,5 @@ struct ContactRowView: View {
     ContactRowView(contact: Contact(id: "1",
                                     firstName: "Pierre",
                                     lastName: "Gasly",
-                                    eamil: "p.gasly@f1.com"))
+                                    email: "p.gasly@f1.com"))
 }
