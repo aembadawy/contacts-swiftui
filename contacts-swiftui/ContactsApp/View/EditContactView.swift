@@ -11,10 +11,15 @@ struct EditContactView: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(ContactViewModel.self) var viewModel
+    
     @State private var contact: Contact
+    @State private var contactDidChange: Bool = false
+    
+    private let originalContact: Contact
     
     init(contact: Contact) {
         self._contact = State(initialValue: contact)
+        self.originalContact = contact
     }
     
     var body: some View {
@@ -33,6 +38,9 @@ struct EditContactView: View {
             }
             
         }
+        .onChange(of: contact, { oldValue, newValue in
+            contactDidChange = newValue != originalContact
+        })
         .navigationTitle("Edit Contact")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -46,6 +54,8 @@ struct EditContactView: View {
                 Button("Save") {
                     updateContact()
                 }
+                .disabled(!contactDidChange)
+                .opacity(contactDidChange ? 1.0 : 0.5)
                 .fontWeight(.bold)
             }
         }
