@@ -17,6 +17,7 @@ struct ContactRowView: View {
                 Text("MJ")
                     .font(.title2)
                     .fontWeight(.bold)
+                    .foregroundStyle(Color.black)
                     .overlay{
                         Circle()
                             .frame(width: 48, height: 48)
